@@ -32,3 +32,6 @@ This project provisions an end-to-end AWS environment from the Ubuntu CLI:
 
 4. Deploy infrastructure:
    terraform apply
+## Deployment Proof
+
+![Live Nginx Web Server](demo.png)
