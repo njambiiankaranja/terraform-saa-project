@@ -86,6 +86,10 @@ resource "aws_security_group" "web" {
     Name        = "${var.environment}-web-sg"
     Environment = var.environment
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # 6. Dynamic AMI Lookup (Ubuntu 22.04)
@@ -118,5 +122,9 @@ resource "aws_instance" "web" {
   tags = {
     Name        = "${var.environment}-web-server"
     Environment = var.environment
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
