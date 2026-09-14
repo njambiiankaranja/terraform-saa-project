@@ -55,7 +55,7 @@ resource "aws_route_table_association" "public" {
 
 # 5. Security Group
 resource "aws_security_group" "web" {
-  name        = "${var.environment}-web-sg"
+  name_prefix = "${var.environment}-web-sg-"
   description = "Allow HTTP and SSH inbound traffic"
   vpc_id      = aws_vpc.main.id
 
