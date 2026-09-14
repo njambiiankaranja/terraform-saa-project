@@ -23,9 +23,9 @@ resource "aws_internet_gateway" "gw" {
 # 3. Public Subnet
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
-  availability_zone       = "${var.aws_region}a"
 
   tags = {
     Name        = "${var.environment}-public-subnet"
@@ -33,7 +33,7 @@ resource "aws_subnet" "public" {
   }
 }
 
-# 4. Route Table for Public Subnet
+# 4. Route Table & Association
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
@@ -48,16 +48,15 @@ resource "aws_route_table" "public" {
   }
 }
 
-# 5. Route Table Association
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
 
-# 6. Security Group for Web Server
+# 5. Security Group
 resource "aws_security_group" "web" {
   name        = "${var.environment}-web-sg"
-  description = "Allow HTTP and SSH traffic"
+  description = "Allow HTTP and SSH inbound traffic"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -89,7 +88,7 @@ resource "aws_security_group" "web" {
   }
 }
 
-# 7. Ubuntu Server AMI (Latest 22.04 LTS)
+# 6. Dynamic AMI Lookup (Ubuntu 22.04)
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
@@ -98,17 +97,12 @@ data "aws_ami" "ubuntu" {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
 }
 
-# 8. EC2 Web Server Instance
+# 7. EC2 Web Server with Nginx
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.instance_type
+  instance_type          = "t2.micro"
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.web.id]
 
@@ -118,7 +112,7 @@ resource "aws_instance" "web" {
               apt-get install -y nginx
               systemctl start nginx
               systemctl enable nginx
-              echo "<h1>Deployed via Terraform SAA Project</h1>" > /var/www/html/index.html
+              echo "<h1>Deployed via Terraform & GitHub Actions!</h1>" > /var/www/html/index.html
               EOF
 
   tags = {
