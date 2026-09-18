@@ -128,3 +128,33 @@ resource "aws_instance" "web" {
     create_before_destroy = true
   }
 }
+# 1. Create SNS Topic for Alerts
+resource "aws_sns_topic" "ec2_alerts" {
+  name = "ec2-high-cpu-alerts"
+}
+
+# 2. Create Email Subscription (Optional: replace with your email)
+resource "aws_sns_topic_subscription" "email_sub" {
+  topic_arn = aws_sns_topic.ec2_alerts.arn
+  protocol  = "email"
+  endpoint  = "your-email@example.com"
+}
+
+# 3. Create CloudWatch High CPU Alarm
+resource "aws_cloudwatch_metric_alarm" "ec2_cpu_alarm" {
+  alarm_name          = "ec2-high-cpu-utilization"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 120
+  statistic           = "Average"
+  threshold           = 80
+  alarm_description   = "Triggers when EC2 CPU stays above 80% for 4 minutes"
+
+  dimensions = {
+    InstanceId = aws_instance.web.id
+  }
+
+  alarm_actions = [aws_sns_topic.ec2_alerts.arn]
+}
