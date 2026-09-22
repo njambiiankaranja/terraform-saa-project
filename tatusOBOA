@@ -1,0 +1,31 @@
+{
+    "MetricAlarms": [
+        {
+            "AlarmName": "ec2-high-cpu-utilization",
+            "AlarmArn": "arn:aws:cloudwatch:us-east-1:000000000000:alarm:ec2-high-cpu-utilization",
+            "AlarmDescription": "Triggers when EC2 CPU stays above 80% for 4 minutes",
+            "ActionsEnabled": true,
+            "OKActions": [],
+            "AlarmActions": [
+                "arn:aws:sns:us-east-1:000000000000:ec2-high-cpu-alerts"
+            ],
+            "InsufficientDataActions": [],
+            "StateValue": "INSUFFICIENT_DATA",
+            "StateReason": "Unchecked",
+            "StateUpdatedTimestamp": "2026-09-18T15:59:29+03:00",
+            "MetricName": "CPUUtilization",
+            "Namespace": "AWS/EC2",
+            "Statistic": "Average",
+            "Dimensions": [
+                {
+                    "Name": "InstanceId",
+                    "Value": "i-73f921530121e4882"
+                }
+            ],
+            "Period": 120,
+            "EvaluationPeriods": 2,
+            "Threshold": 80.0,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold"
+        }
+    ]
+}

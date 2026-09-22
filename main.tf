@@ -137,7 +137,7 @@ resource "aws_sns_topic" "ec2_alerts" {
 resource "aws_sns_topic_subscription" "email_sub" {
   topic_arn = aws_sns_topic.ec2_alerts.arn
   protocol  = "email"
-  endpoint  = "your-email@example.com"
+  endpoint  = "njambiiankaranja@gmail.com"
 }
 
 # 3. Create CloudWatch High CPU Alarm
