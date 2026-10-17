@@ -5,3 +5,4 @@ terraform.tfvars
 .terraform.lock.hcl
 crash.log
 providers_override.tf
+tatusiOB0A
