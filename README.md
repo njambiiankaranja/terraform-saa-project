@@ -22,6 +22,11 @@ This project provisions an end-to-end AWS environment from the Ubuntu CLI:
 - **Amazon S3 Bucket**: Provisioned as a secure repository for application data, logs, or backups.
 - **IAM Instance Profile**: Implements cloud security best practices by attaching a dedicated IAM role directly to the EC2 instance, allowing safe communication with S3 without exposing hardcoded credentials.
 
+## Cleanup
+To avoid ongoing costs or clean up the resources after testing, you can destroy the infrastructure using Terraform:
+```bash
+terraform destroy
+
 ### Application Monitoring & Alerting
 This project includes automated cloud infrastructure monitoring using Amazon CloudWatch and Amazon SNS:
 - CPU Utilization Metric Alarm: Automatically monitors the EC2 web server's CPU usage and triggers if it exceeds 80% for a sustained period of 5 minutes.
