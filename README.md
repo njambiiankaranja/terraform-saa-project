@@ -33,5 +33,9 @@ This project provisions an end-to-end AWS environment from the Ubuntu CLI:
 4. Deploy infrastructure:
    terraform apply
 ## Deployment Proof
+### Application Monitoring & Alerting
+This project includes automated cloud infrastructure monitoring using Amazon CloudWatch and Amazon SNS:
+- CPU Utilization Metric Alarm: Automatically monitors the EC2 web server's CPU usage and triggers if it exceeds 80% for a sustained period of 5 minutes.
+- SNS Notifications: Integrated with an Amazon SNS Topic to instantly dispatch email alerts to administrators whenever a CloudWatch alarm state changes.
 
 ![Live Nginx Web Server](demo.png)
