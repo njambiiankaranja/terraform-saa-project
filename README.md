@@ -18,6 +18,10 @@ This project provisions an end-to-end AWS environment from the Ubuntu CLI:
 * outputs.tf - Key operational outputs (e.g., EC2 Public IP, VPC ID).
 * providers.tf - AWS Provider configuration and required version pins.
 
+### Secure Object Storage & Least-Privilege IAM
+- **Amazon S3 Bucket**: Provisioned as a secure repository for application data, logs, or backups.
+- **IAM Instance Profile**: Implements cloud security best practices by attaching a dedicated IAM role directly to the EC2 instance, allowing safe communication with S3 without exposing hardcoded credentials.
+
 ### Application Monitoring & Alerting
 This project includes automated cloud infrastructure monitoring using Amazon CloudWatch and Amazon SNS:
 - CPU Utilization Metric Alarm: Automatically monitors the EC2 web server's CPU usage and triggers if it exceeds 80% for a sustained period of 5 minutes.
