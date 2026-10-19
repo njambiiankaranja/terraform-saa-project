@@ -19,9 +19,9 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   namespace           = "AWS/EC2"
   period              = 300 # 5 minutes
   statistic           = "Average"
-  threshold           = 80  # 80% CPU usage threshold
+  threshold           = 80 # 80% CPU usage threshold
   alarm_description   = "This metric monitors EC2 CPU utilization and triggers if it exceeds 80%"
-  
+
   dimensions = {
     InstanceId = aws_instance.web.id
   }
