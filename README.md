@@ -31,7 +31,7 @@ This project includes automated cloud infrastructure monitoring using Amazon Clo
 To avoid ongoing costs or clean up the resources after testing, you can destroy the infrastructure using Terraform:
 ```bash
 terraform destroy
-
+```
 ## Quickstart
 
 
