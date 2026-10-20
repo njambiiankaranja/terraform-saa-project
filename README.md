@@ -22,7 +22,39 @@ This project provisions an end-to-end AWS environment from the Ubuntu CLI:
 - **Amazon S3 Bucket**: Provisioned as a secure repository for application data, logs, or backups.
 - **IAM Instance Profile**: Implements cloud security best practices by attaching a dedicated IAM role directly to the EC2 instance, allowing safe communication with S3 without exposing hardcoded credentials.
 
+### Application Monitoring & Alerting
+This project includes automated cloud infrastructure monitoring using Amazon CloudWatch and Amazon SNS[cite: 4]:
+- CPU Utilization Metric Alarm: Automatically monitors the EC2 web server's CPU usage and triggers if it exceeds 80% for a sustained period of 5 minutes[cite: 4].
+- SNS Notifications: Integrated with an Amazon SNS Topic to instantly dispatch email alerts to administrators whenever a CloudWatch alarm state changes[cite: 4].
+
 ## Cleanup
 To avoid ongoing costs or clean up the resources after testing, you can destroy the infrastructure using Terraform:
 ```bash
 terraform destroy
+
+## Quickstart
+
+
+
+Clone the repository:
+   git clone https://github.com/njambiiankaranja/terraform-saa-project.git
+
+   cd terraform-saa-project
+
+
+
+2. Initialize the backend and providers:
+
+   terraform init
+
+
+
+3. Review execution plan:
+
+   terraform plan
+
+
+
+4. Deploy infrastructure:
+
+   terraform apply
